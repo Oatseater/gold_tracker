@@ -137,6 +137,54 @@ def metrics(actual, pred):
     return {"RMSE": rmse, "MAE": mae, "MAPE%": mape, "DirAcc%": da}
 
 
+# ------------------------------------------------------------------ #
+# 7. Karat / AED conversion (UAE gold market: AED per gram)          #
+# ------------------------------------------------------------------ #
+TROY_OUNCE_G = 31.1034768
+USD_AED_PEG = 3.6725  # fixed peg fallback if live FX unavailable
+
+
+def usd_to_aed_rate(live_rate=None):
+    if live_rate and live_rate > 0:
+        return float(live_rate)
+    return USD_AED_PEG
+
+
+def karat_price_table(usd_per_oz, usd_to_aed, karats=(24, 22, 18)):
+    """AED per gram / per oz for given karats. karat purity = k/24."""
+    rows = []
+    pure_usd_per_gram = usd_per_oz / TROY_OUNCE_G
+    for k in karats:
+        purity = k / 24.0
+        usd_per_gram = pure_usd_per_gram * purity
+        aed_per_gram = usd_per_gram * usd_to_aed
+        rows.append({
+            "karat": k,
+            "purity": purity,
+            "aed_per_gram": aed_per_gram,
+            "aed_per_oz": aed_per_gram * TROY_OUNCE_G,
+            "usd_per_gram": usd_per_gram,
+        })
+    return pd.DataFrame(rows)
+
+
+# ------------------------------------------------------------------ #
+# 8. Monte Carlo -> probability terrain (price x time density grid)  #
+# ------------------------------------------------------------------ #
+def mc_density_terrain(paths, price_bins=40):
+    """Build a (time x price_bin) density grid from MC paths for 3D terrain."""
+    n_sims, T = paths.shape
+    pmin, pmax = paths.min(), paths.max()
+    if pmin == pmax:
+        pmax = pmin + 1.0
+    edges = np.linspace(pmin, pmax, price_bins + 1)
+    centers = (edges[:-1] + edges[1:]) / 2
+    grid = np.zeros((T, price_bins))
+    for t in range(T):
+        grid[t], _ = np.histogram(paths[:, t], bins=edges)
+    return grid, centers
+
+
 def walk_forward_backtest(df, feature_cols, target="Gold", model="gbr", min_train=60):
     """One-step-ahead expanding-window backtest vs random walk."""
     d = build_features(df)

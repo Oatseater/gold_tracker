@@ -81,3 +81,21 @@ print("        -> model %s random walk on RMSE"
 print("=" * 55)
 print("ALL COMPONENTS PASSED")
 print("=" * 55)
+
+# 7. Karat / AED conversion
+kt = gm.karat_price_table(float(gold[-1]), gm.usd_to_aed_rate())
+assert kt.iloc[0]["aed_per_gram"] > kt.iloc[1]["aed_per_gram"] > kt.iloc[2]["aed_per_gram"]
+assert abs(kt.iloc[0]["purity"] - 1.0) < 1e-9
+print("[PASS] Karat/AED-> 24K %.2f / 22K %.2f / 18K %.2f AED per gram"
+      % tuple(kt["aed_per_gram"]))
+
+# 8. MC density terrain (signature 3D visual data)
+grid, centers = gm.mc_density_terrain(mc["paths"], price_bins=30)
+assert grid.shape == (mc["mean"].shape[0], 30)
+assert np.allclose(grid.sum(axis=1), 2000)
+print("[PASS] MC terrain -> grid %s, price range $%.0f-$%.0f"
+      % (grid.shape, centers[0], centers[-1]))
+
+print("=" * 55)
+print("ALL COMPONENTS PASSED (incl. karat/AED + terrain)")
+print("=" * 55)
