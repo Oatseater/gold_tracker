@@ -5,16 +5,16 @@ import plotly.graph_objects as go
 # ------------------------------------------------------------------ #
 # Design tokens
 # ------------------------------------------------------------------ #
-VOID = "#07080A"
-PANEL = "#0D0F12"
-LINE = "rgba(255,255,255,0.08)"
-LINE_SOFT = "rgba(255,255,255,0.04)"
-TEXT = "#E7E5DE"
-DIM = "#6E7480"
-GOLD = "#E8B84B"
-CYAN = "#6FE7DD"
-GREEN = "#57D38C"
-RED = "#F2545B"
+VOID = "#000000"
+PANEL = "#0E0E0E"
+LINE = "rgba(255,255,255,0.10)"
+LINE_SOFT = "rgba(255,255,255,0.05)"
+TEXT = "#F2F2F0"
+DIM = "#8A8A8A"
+GOLD = "#FFFFFF"
+CYAN = "#CFCFCF"
+GREEN = "#FFFFFF"
+RED = "#5A5A5A"
 
 CSS = r"""
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap');
@@ -22,64 +22,64 @@ CSS = r"""
 html, body, [class*="css"], .stApp { font-family:'JetBrains Mono', monospace !important; }
 
 .stApp{
-  background-color:#07080A;
+  background-color:#000000;
   background-image:
-    linear-gradient(rgba(255,255,255,0.028) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.028) 1px, transparent 1px);
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
   background-size: 42px 42px;
-  color:#E7E5DE;
+  color:#F2F2F0;
 }
 #MainMenu, footer {visibility:hidden;}
 header[data-testid="stHeader"]{background:transparent;}
 .block-container{padding-top:0.8rem; padding-bottom:3rem; max-width:1440px;}
 
-[data-testid="stSidebar"]{ background-color:#0D0F12; border-right:1px solid rgba(255,255,255,0.08); }
+[data-testid="stSidebar"]{ background-color:#0E0E0E; border-right:1px solid rgba(255,255,255,0.12); }
 [data-testid="stSidebar"] *{ font-family:'JetBrains Mono',monospace !important; }
-[data-testid="stSidebar"] label{ color:#6E7480 !important; font-size:10px !important; letter-spacing:0.18em; text-transform:uppercase; }
+[data-testid="stSidebar"] label{ color:#8A8A8A !important; font-size:10px !important; letter-spacing:0.18em; text-transform:uppercase; }
 
 .stSelectbox div[data-baseweb="select"] > div, .stNumberInput input, .stTextInput input{
-  background-color:#111318 !important; border:1px solid rgba(255,255,255,0.08) !important;
-  color:#E7E5DE !important; border-radius:2px !important; font-family:'JetBrains Mono',monospace !important;
+  background-color:#0A0A0A !important; border:1px solid rgba(255,255,255,0.12) !important;
+  color:#F2F2F0 !important; border-radius:2px !important; font-family:'JetBrains Mono',monospace !important;
 }
 .stButton>button{
-  background-color:#111318; color:#E7E5DE; border:1px solid rgba(255,255,255,0.08);
+  background-color:#0A0A0A; color:#F2F2F0; border:1px solid rgba(255,255,255,0.12);
   border-radius:2px; font-family:'JetBrains Mono',monospace; letter-spacing:0.1em;
   text-transform:uppercase; font-size:12px; font-weight:600; width:100%;
 }
-.stButton>button:hover{ border-color:#E8B84B; color:#E8B84B; }
+.stButton>button:hover{ border-color:#FFFFFF; color:#FFFFFF; }
 
 h1,h2,h3{ font-family:'JetBrains Mono',monospace !important; letter-spacing:0.04em; font-weight:700 !important; }
-[data-testid="stExpander"]{ background-color:#0D0F12; border:1px solid rgba(255,255,255,0.08); border-radius:2px; }
-hr{ border-color: rgba(255,255,255,0.08) !important; }
+[data-testid="stExpander"]{ background-color:#0E0E0E; border:1px solid rgba(255,255,255,0.12); border-radius:2px; }
+hr{ border-color: rgba(255,255,255,0.12) !important; }
 
-.t-card{ background:#0D0F12; border:1px solid rgba(255,255,255,0.08); padding:10px 14px; border-radius:2px; margin-bottom:8px; }
-.t-label{ color:#6E7480; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; }
-.t-value{ font-size:20px; font-weight:800; font-variant-numeric:tabular-nums; letter-spacing:-0.01em; margin-top:2px; color:#E7E5DE; }
-.t-sub{ font-size:11px; color:#6E7480; margin-top:2px; font-variant-numeric:tabular-nums; }
+.t-card{ background:#0E0E0E; border:1px solid rgba(255,255,255,0.12); padding:10px 14px; border-radius:2px; margin-bottom:8px; }
+.t-label{ color:#8A8A8A; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; }
+.t-value{ font-size:20px; font-weight:800; font-variant-numeric:tabular-nums; letter-spacing:-0.01em; margin-top:2px; color:#F2F2F0; }
+.t-sub{ font-size:11px; color:#8A8A8A; margin-top:2px; font-variant-numeric:tabular-nums; }
 
 .ticker{ display:flex; align-items:center; gap:32px; padding:10px 4px 14px;
-  border-bottom:1px solid rgba(255,255,255,0.08); margin-bottom:14px; flex-wrap:wrap; }
-.ticker .pair{ color:#6E7480; font-size:11px; letter-spacing:0.18em; }
-.ticker .px{ font-size:30px; font-weight:800; color:#E8B84B; font-variant-numeric:tabular-nums; }
-.ticker .px2{ font-size:24px; font-weight:800; color:#E7E5DE; font-variant-numeric:tabular-nums; }
-.ticker .delta-up{ color:#57D38C; font-size:13px; font-variant-numeric:tabular-nums; }
-.ticker .delta-down{ color:#F2545B; font-size:13px; font-variant-numeric:tabular-nums; }
-.live{ display:flex; align-items:center; gap:6px; margin-left:auto; color:#6E7480; font-size:11px; letter-spacing:0.18em; }
-.live .dot{ width:8px; height:8px; border-radius:50%; background:#57D38C; animation:pulse 1.6s infinite; }
-.live .dot.paused{ background:#6E7480; animation:none; }
+  border-bottom:1px solid rgba(255,255,255,0.12); margin-bottom:14px; flex-wrap:wrap; }
+.ticker .pair{ color:#8A8A8A; font-size:11px; letter-spacing:0.18em; }
+.ticker .px{ font-size:30px; font-weight:800; color:#FFFFFF; font-variant-numeric:tabular-nums; }
+.ticker .px2{ font-size:24px; font-weight:800; color:#F2F2F0; font-variant-numeric:tabular-nums; }
+.ticker .delta-up{ color:#FFFFFF; font-size:13px; font-variant-numeric:tabular-nums; }
+.ticker .delta-down{ color:#5A5A5A; font-size:13px; font-variant-numeric:tabular-nums; }
+.live{ display:flex; align-items:center; gap:6px; margin-left:auto; color:#8A8A8A; font-size:11px; letter-spacing:0.18em; }
+.live .dot{ width:8px; height:8px; border-radius:50%; background:#FFFFFF; animation:pulse 1.6s infinite; }
+.live .dot.paused{ background:#8A8A8A; animation:none; }
 @keyframes pulse{ 0%,100%{opacity:1;} 50%{opacity:.25;} }
 
 .term-table{ width:100%; border-collapse:collapse; font-size:12px; }
-.term-table th{ text-align:left; color:#6E7480; font-size:10px; letter-spacing:0.15em;
-  text-transform:uppercase; border-bottom:1px solid rgba(255,255,255,0.08); padding:6px 8px; font-weight:600; }
-.term-table td{ padding:6px 8px; border-bottom:1px solid rgba(255,255,255,0.04); font-variant-numeric:tabular-nums; }
+.term-table th{ text-align:left; color:#8A8A8A; font-size:10px; letter-spacing:0.15em;
+  text-transform:uppercase; border-bottom:1px solid rgba(255,255,255,0.12); padding:6px 8px; font-weight:600; }
+.term-table td{ padding:6px 8px; border-bottom:1px solid rgba(255,255,255,0.06); font-variant-numeric:tabular-nums; }
 .term-table tr:last-child td{ border-bottom:none; }
 
-.log-line{ font-size:12px; color:#E7E5DE; padding:5px 0; border-bottom:1px solid rgba(255,255,255,0.04); }
-.log-line span{ color:#E8B84B; margin-right:8px; }
+.log-line{ font-size:12px; color:#F2F2F0; padding:5px 0; border-bottom:1px solid rgba(255,255,255,0.06); }
+.log-line span{ color:#FFFFFF; margin-right:8px; }
 
-.section-label{ color:#6E7480; font-size:10px; letter-spacing:0.22em; text-transform:uppercase;
-  border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:6px; margin-bottom:10px; }
+.section-label{ color:#8A8A8A; font-size:10px; letter-spacing:0.22em; text-transform:uppercase;
+  border-bottom:1px solid rgba(255,255,255,0.12); padding-bottom:6px; margin-bottom:10px; }
 """
 
 PLOTLY_FONT = dict(family="JetBrains Mono, monospace", size=10, color=DIM)
@@ -121,7 +121,7 @@ def karat_card_html(karat, purity, aed_per_gram, aed_per_oz, usd_per_gram):
     return f"""
 <div class="t-card">
   <div class="t-label">{int(karat)}K &middot; {purity*100:.1f}% PURE</div>
-  <div class="t-value">{fmt(aed_per_gram)} <span style="font-size:11px;color:#6E7480;font-weight:500;">AED/G</span></div>
+  <div class="t-value">{fmt(aed_per_gram)} <span style="font-size:11px;color:#8A8A8A;font-weight:500;">AED/G</span></div>
   <div class="t-sub">{fmt(aed_per_oz)} AED/OZ &middot; {fmt(usd_per_gram)} USD/G</div>
 </div>
 """
@@ -227,7 +227,7 @@ def forecast_figure(gold_index, gold_values, kalman_series, future_idx, mc_mean,
                               fillcolor="rgba(111,231,221,0.12)", line=dict(width=0), hoverinfo="skip"))
     fig.add_trace(go.Scatter(x=future_idx, y=mc_mean, name="MC MEAN",
                               line=dict(color=CYAN, width=1.6)))
-    grid_kw = dict(gridcolor="rgba(255,255,255,0.05)", zerolinecolor="rgba(255,255,255,0.08)",
+    grid_kw = dict(gridcolor="rgba(255,255,255,0.05)", zerolinecolor="rgba(255,255,255,0.12)",
                     color=DIM, tickfont=dict(size=10))
     fig.update_layout(
         height=420, margin=dict(l=10, r=10, t=10, b=10),

@@ -51,7 +51,8 @@ def get_data(period, interval):
 
 @st.cache_data(ttl=300)
 def get_daily(period="1y"):
-    return yf.download("GC=F", period=period, interval="1d")["Close"].dropna()
+    s = yf.download("GC=F", period=period, interval="1d")["Close"].dropna()
+    return s.squeeze()
 
 
 @st.cache_data(ttl=300)
